@@ -2,6 +2,27 @@ import React, { useState, useEffect } from 'react'
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import styled from 'styled-components'
+
+const UserDivs = styled.div`
+border: 2px solid black;
+width: 300px
+margin: 20px;
+
+`
+
+const FormDiv = styled.div`
+display: flex;
+justify-content: center;
+margin-top: 40px
+margin-bottom: 30px;
+flex-wrap: wrap;
+`
+const WrapperDiv = styled.div`
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+`
 
 function Forms({ errors, touched, status }) {
     const [users, setUsers] = useState([])
@@ -11,25 +32,31 @@ function Forms({ errors, touched, status }) {
     }, [status])
     return (
         <div>
-            <Form>
-                <Field type='text' name='name' placeholder='Name' />
-                {touched.name && errors.name && (<p className="errors">{errors.name}</p>)}
-                <Field type='email' name='email' placeholder='Email' />
-                {touched.email && errors.email && (<p className="errors">{errors.email}</p>)}
-                <Field type='password' name='password' placeholder='Password' />
-                {touched.password && errors.password && (<p className="errors">{errors.password}</p>)}
-                <label>  Terms of Service
+            <FormDiv>
+                <Form>
+                    <Field type='text' name='name' placeholder='Name' />
+                    {touched.name && errors.name && (<p className="errors">{errors.name}</p>)}
+                    <Field type='email' name='email' placeholder='Email' />
+                    {touched.email && errors.email && (<p className="errors">{errors.email}</p>)}
+                    <Field type='password' name='password' placeholder='Password' />
+                    {touched.password && errors.password && (<p className="errors">{errors.password}</p>)}
+                    <label>  Terms of Service
                 <Field type='checkbox' name='terms' />
-                </label>
-                <button>Submit</button>
-            </Form>
-            {users.map(user => (
-                <ul key={user.id}>
-                    <li>Name: {user.name}</li>
-                    <li>Email: {user.email}</li>
-                    <li>Password: {user.password}</li>
-                </ul>
-            ))}
+                    </label>
+                    <button>Submit</button>
+                </Form>
+            </FormDiv>
+            <WrapperDiv>
+                {users.map(user => (
+                    <UserDivs>
+                        <ul key={user.id}>
+                            <li>Name: {user.name}</li>
+                            <li>Email: {user.email}</li>
+                            <li>Password: {user.password}</li>
+                        </ul>
+                    </UserDivs>
+                ))}
+            </WrapperDiv>
         </div>
     )
 }
